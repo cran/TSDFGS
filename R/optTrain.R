@@ -16,6 +16,27 @@
 #                             \-- CD-score (CNN)   #
 ####################################################
 
+#' Optimal training set determination
+#' 
+#' This function is designed for determining optimal training set.
+#' 
+#' @author Jen-Hsiang Ou
+#' 
+#' @param geno A numeric matrix of principal components (rows: individuals; columns: PCs).
+#' @param cand An integer vector of which rows of individuals are candidates of the training set in the geno matrix.
+#' @param n.train The size of the target training set. This could be determined with the help of the ssdfgp function provided in this package.
+#' @param subpop A character vector of sub-population's group name. The algorithm will ignore the population structure if it remains NULL.
+#' @param test An integer vector of which rows of individuals are in the test set in the geno matrix. The algorithm will use an un-target method if it remains NULL.
+#' @param method Choices are rScore, PEV and CD. rScore will be used by default.
+#' @param min.iter Minimum iteration of all methods can be appointed. One should always check if the algorithm is converged or not. A minimum iteration will set by considering the candidate and test set size if it remains NULL.
+#' 
+#' @return This function will return 3 information including OPTtrain (a vector of chosen optimal training set), TOPscore (highest scores of before iteration), and ITERscore (criteria scores of each iteration).
+#' 
+#' @export
+#' @examples
+#' data(geno)
+#' \dontrun{optTrain(geno, cand = 1:404, n.train = 100)}
+#' 
 optTrain = function(geno, cand, n.train, subpop=NULL, test=NULL, method="rScore", min.iter=NULL)
 {  
   if(!method%in%c("rScore","PEV","CD")){stop("Method not found. Please choose one from (rScore, PEV, CD)")}

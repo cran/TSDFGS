@@ -6,15 +6,20 @@
 
 using namespace Rcpp;
 
-// r_score
-float r_score(Eigen::MatrixXd x, Eigen::MatrixXd x0);
-RcppExport SEXP _TSDFGS_r_score(SEXP xSEXP, SEXP x0SEXP) {
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
+// cd_score
+float cd_score(Eigen::MatrixXd X, Eigen::MatrixXd X0);
+RcppExport SEXP _TSDFGS_cd_score(SEXP XSEXP, SEXP X0SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type x0(x0SEXP);
-    rcpp_result_gen = Rcpp::wrap(r_score(x, x0));
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X(XSEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X0(X0SEXP);
+    rcpp_result_gen = Rcpp::wrap(cd_score(X, X0));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -30,23 +35,23 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// cd_score
-float cd_score(Eigen::MatrixXd x, Eigen::MatrixXd x0);
-RcppExport SEXP _TSDFGS_cd_score(SEXP xSEXP, SEXP x0SEXP) {
+// r_score
+float r_score(Eigen::MatrixXd X, Eigen::MatrixXd X0);
+RcppExport SEXP _TSDFGS_r_score(SEXP XSEXP, SEXP X0SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type x0(x0SEXP);
-    rcpp_result_gen = Rcpp::wrap(cd_score(x, x0));
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X(XSEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X0(X0SEXP);
+    rcpp_result_gen = Rcpp::wrap(r_score(X, X0));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_TSDFGS_r_score", (DL_FUNC) &_TSDFGS_r_score, 2},
-    {"_TSDFGS_pev_score", (DL_FUNC) &_TSDFGS_pev_score, 2},
     {"_TSDFGS_cd_score", (DL_FUNC) &_TSDFGS_cd_score, 2},
+    {"_TSDFGS_pev_score", (DL_FUNC) &_TSDFGS_pev_score, 2},
+    {"_TSDFGS_r_score", (DL_FUNC) &_TSDFGS_r_score, 2},
     {NULL, NULL, 0}
 };
 
